@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-order-aggregator-service-deployment
+  labels:
+    app: user-order-aggregator-service
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-order-aggregator-service
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: user-order-aggregator-service
+        tier: backend
+    spec:
+      containers:
+      - name: user-order-aggregator-service
+        image: sc5896/user-order-aggregator-service:v1
+        env:
+        - name: USER_SERVICE_URL
+          valueFrom:
+            configMapKeyRef:
+              key: USER_SERVICE_URL
+              name: service-url-configmap
+        - name: ORDER_SERVICE_URL
+          valueFrom:
+            configMapKeyRef:
+              key: ORDER_SERVICE_URL
+              name: service-url-configmap
+        ports:
+        - containerPort: 8080
+        args: ["--opentracing.jaeger.udp-sender.host=jaeger-agent"]
+        imagePullPolicy: Always

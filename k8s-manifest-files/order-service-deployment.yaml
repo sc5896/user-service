@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-service-deployment
+  labels:
+    app: order-service
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-service
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: order-service
+        tier: backend
+    spec:
+      containers:
+      - name: order-service
+        image: sc5896/order-service:v1  
+        ports:
+        - containerPort: 8080
+        args: ["--opentracing.jaeger.udp-sender.host=jaeger-agent"]
+        imagePullPolicy: Always

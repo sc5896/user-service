@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: service-url-configmap
+data:
+  ORDER_SERVICE_URL: http://order-deploy-cfkqk
+  USER_SERVICE_URL: http://user-deploy-tzkzb
