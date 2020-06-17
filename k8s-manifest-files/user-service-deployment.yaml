@@ -42,7 +42,7 @@ spec:
                 name: db-credentials-secret
                 key: password
         ports:
-        - name: user-service-container-port
+        - name: user-svc-port
           containerPort: 8080
         args: ["--opentracing.jaeger.udp-sender.host=jaeger-agent"]
         imagePullPolicy: Always
@@ -61,4 +61,4 @@ spec:
     ports:
       - protocol: TCP
         port: 8082
-        targetPort: user-service-container-port
+        targetPort: user-svc-port

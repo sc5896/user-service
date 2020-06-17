@@ -32,7 +32,7 @@ spec:
               key: ORDER_SERVICE_URL
               name: service-url-configmap
         ports:
-        - name: user-order-aggregator-service-container-port
+        - name: usr-ordr-port
           containerPort: 8080
         args: ["--opentracing.jaeger.udp-sender.host=jaeger-agent"]
         imagePullPolicy: Always
@@ -51,4 +51,4 @@ spec:
     ports:
       - protocol: TCP
         port: 8082
-        targetPort: user-order-aggregator-service-container-port
+        targetPort: usr-ordr-port
