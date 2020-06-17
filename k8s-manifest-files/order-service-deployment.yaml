@@ -21,6 +21,23 @@ spec:
       - name: order-service
         image: sc5896/order-service:v1  
         ports:
-        - containerPort: 8080
+        - name: order-service-container-port
+          containerPort: 8080
         args: ["--opentracing.jaeger.udp-sender.host=jaeger-agent"]
         imagePullPolicy: Always
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+    name: order-service
+spec:
+    selector:
+        app: order-service
+        tier: backend
+    type: ClusterIP
+    ports:
+      - protocol: TCP
+        port: 8082
+        targetPort: order-service-container-port

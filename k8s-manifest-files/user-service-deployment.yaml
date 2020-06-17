@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: user-service-deploy
+  name: user-service-deployment
   labels:
     app: user-service
     tier: backend
@@ -42,6 +42,23 @@ spec:
                 name: db-credentials-secret
                 key: password
         ports:
-        - containerPort: 8080
+        - name: user-service-container-port
+          containerPort: 8080
         args: ["--opentracing.jaeger.udp-sender.host=jaeger-agent"]
         imagePullPolicy: Always
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+    name: user-service
+spec:
+    selector:
+        app: user-service
+        tier: backend
+    type: ClusterIP
+    ports:
+      - protocol: TCP
+        port: 8082
+        targetPort: user-service-container-port
