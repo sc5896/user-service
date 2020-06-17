@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: service-url-configmap
 data:
-  ORDER_SERVICE_URL: http://user-service:8082
-  USER_SERVICE_URL: http://order-service:8082
+  USER_SERVICE_URL: http://user-service:8082
+  ORDER_SERVICE_URL: http://order-service:8082

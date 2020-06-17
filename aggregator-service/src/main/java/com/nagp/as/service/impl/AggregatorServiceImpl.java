@@ -77,7 +77,7 @@ public class AggregatorServiceImpl implements AggregatorService{
 				orders = responseEntity.getBody().getOrders();
 			}
 		} catch(Exception e) {
-			throw new ASException(ASErrEnum.AS03,e);
+			throw new ASException(ASErrEnum.AS04,e);
 		}
 		
 		return orders;
