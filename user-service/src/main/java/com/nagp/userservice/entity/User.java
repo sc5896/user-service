@@ -10,6 +10,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * JPA model class for users table
+ * @author santoshkumar02
+ *
+ */
 @Entity
 @Table(name="USERS")
 @Getter @Setter @NoArgsConstructor

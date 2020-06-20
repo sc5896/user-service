@@ -12,11 +12,25 @@ import com.nagp.orderservice.dto.UserOrderDTO;
 import com.nagp.orderservice.service.OrderService;
 import com.nagp.orderservice.util.DateUtil;
 
+/**
+ * Service implementation of AggregatorService The public method
+ * getUserOrderDetails internally calls user-service to get User details and
+ * order-service to fetch order details.
+ * 
+ * @author santoshkumar02
+ *
+ */
 @Service
-public class OrderServiceImpl implements OrderService{
+public class OrderServiceImpl implements OrderService {
 	private static final String DT_FORMAT = "dd-MMM-yyyy";
 	private static final String UTC_TZ = "UTC";
-	
+
+	/**
+	 * Returns order details (Order Id, Order Amount and Order Date).
+	 * 
+	 * @param userId
+	 * @return An object of UserOrderDTO containing order details
+	 */
 	@Override
 	public UserOrderDTO getOrdersOfUser(Long userId) {
 		UserOrderDTO userOrders = new UserOrderDTO();
@@ -27,13 +41,19 @@ public class OrderServiceImpl implements OrderService{
 		}
 		return userOrders;
 	}
-	
+
+	/**
+	 * Create dummy order list to generate dummy data
+	 * 
+	 * @return list of orders
+	 * @throws ParseException
+	 */
 	private List<OrderDTO> generateDummyOrderList() throws ParseException {
 		List<OrderDTO> orders = new ArrayList<>();
 		OrderDTO order = new OrderDTO();
 		order.setOrderId(1L);
 		order.setOrderAmount(250);
-		
+
 		order.setOrderDate(DateUtil.getDate("14-Apr-2020", DT_FORMAT, TimeZone.getTimeZone(UTC_TZ)));
 		orders.add(order);
 		order = new OrderDTO();
@@ -43,5 +63,5 @@ public class OrderServiceImpl implements OrderService{
 		orders.add(order);
 		return orders;
 	}
-	
+
 }

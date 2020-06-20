@@ -5,9 +5,20 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * Springboot Application launcher class
+ * 
+ * @author santoshkumar02
+ *
+ */
 @SpringBootApplication
 public class AggregatorServiceApplication {
 
+	/**
+	 * Launches the application
+	 * 
+	 * @param args - Application startup arguments
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(AggregatorServiceApplication.class, args);
 	}

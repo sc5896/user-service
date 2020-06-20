@@ -15,21 +15,37 @@ import com.nagp.userservice.dto.UserDTO;
 import com.nagp.userservice.entity.User;
 import com.nagp.userservice.service.UserService;
 
+/**
+ * This controller class contains rest end points to get user details.
+ * 
+ * @author santoshkumar02
+ *
+ */
 @RestController
 public class UserController {
 	
 	@Autowired
 	private UserService userService;
 
+	/**
+	 * This method returns user details of the given user id.
+	 * @param id
+	 * @return user details
+	 */
 	@GetMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
 		UserDTO user = userService.getUserById(id);
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
+	/**
+	 * This method creats a new user from given details.
+	 * @param user
+	 * @return user details of created new user
+	 */
 	@PostMapping(value = "/user", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> createUser(@Validated @RequestBody UserDTO user) {
 		User entity = userService.createUser(user);
-		return new ResponseEntity<>(entity, HttpStatus.OK);
+		return new ResponseEntity<>(entity, HttpStatus.CREATED);
 	}
 }
