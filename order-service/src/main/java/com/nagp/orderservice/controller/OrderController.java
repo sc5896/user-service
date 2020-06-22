@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nagp.orderservice.dto.UserOrderDTO;
 import com.nagp.orderservice.service.OrderService;
 
+import io.opentracing.Span;
+import io.opentracing.Tracer;
+
 /**
  * This controller class contains rest end points to get order details.
  * 
@@ -19,6 +22,9 @@ import com.nagp.orderservice.service.OrderService;
  */
 @RestController
 public class OrderController {
+	
+	@Autowired
+	private Tracer tracer;
 
 	@Autowired
 	private OrderService orderService;
@@ -31,6 +37,10 @@ public class OrderController {
 	 */
 	@GetMapping(value = "/orders/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UserOrderDTO> getOrdersOfUser(@PathVariable Long userId) {
-		return new ResponseEntity<>(orderService.getOrdersOfUser(userId), HttpStatus.OK);
+		Span span = tracer.buildSpan("order-service").start();
+		UserOrderDTO userOrderDTO = orderService.getOrdersOfUser(userId);
+		span.finish();
+		return new ResponseEntity<>(userOrderDTO, HttpStatus.OK);
 	}
+	
 }
