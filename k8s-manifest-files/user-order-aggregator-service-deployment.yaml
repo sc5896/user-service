@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: user-order-aggregator-service
-        image: sc5896/user-order-aggregator-service:v1
+        image: sc5896/user-order-aggregator-service:latest
         env:
         - name: USER_SERVICE_URL
           valueFrom:
