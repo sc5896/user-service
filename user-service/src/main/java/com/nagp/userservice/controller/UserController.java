@@ -15,6 +15,9 @@ import com.nagp.userservice.dto.UserDTO;
 import com.nagp.userservice.entity.User;
 import com.nagp.userservice.service.UserService;
 
+import io.opentracing.Span;
+import io.opentracing.Tracer;
+
 /**
  * This controller class contains rest end points to get user details.
  * 
@@ -23,6 +26,8 @@ import com.nagp.userservice.service.UserService;
  */
 @RestController
 public class UserController {
+	@Autowired
+	private Tracer tracer;
 	
 	@Autowired
 	private UserService userService;
@@ -34,7 +39,10 @@ public class UserController {
 	 */
 	@GetMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
+		Span span = tracer.buildSpan("user-service").start();
 		UserDTO user = userService.getUserById(id);
+		span.setTag("http.status_code", 200);
+		span.finish();
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	

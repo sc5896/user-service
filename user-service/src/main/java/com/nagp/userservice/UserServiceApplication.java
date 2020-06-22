@@ -2,6 +2,11 @@ package com.nagp.userservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+
+import io.jaegertracing.Configuration;
+import io.jaegertracing.internal.samplers.ConstSampler;
+import io.opentracing.Tracer;
 
 /**
  * Springboot Application launcher class
@@ -20,6 +25,22 @@ public class UserServiceApplication {
 	 */
 	public static void main(String[] args) {
 		SpringApplication.run(UserServiceApplication.class, args);
+	}
+
+	/**
+	 * Gives an object of Tracer for open tracing of service
+	 * 
+	 * @return Tracer object
+	 */
+	@Bean
+	public Tracer getTracer() {
+		Configuration.SamplerConfiguration samplerConfig = Configuration.SamplerConfiguration.fromEnv()
+				.withType(ConstSampler.TYPE).withParam(1);
+		Configuration.ReporterConfiguration reporterConfig = Configuration.ReporterConfiguration.fromEnv()
+				.withLogSpans(true);
+		Configuration config = new Configuration("user-service").withSampler(samplerConfig)
+				.withReporter(reporterConfig);
+		return config.getTracer();
 	}
 
 }

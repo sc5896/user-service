@@ -26,6 +26,11 @@ public class OrderServiceApplication {
 		SpringApplication.run(OrderServiceApplication.class, args);
 	}
 
+	/**
+	 * Gives an object of Tracer for open tracing of service
+	 * 
+	 * @return Tracer object
+	 */
 	@Bean
 	public Tracer getTracer() {
 		Configuration.SamplerConfiguration samplerConfig = Configuration.SamplerConfiguration.fromEnv()

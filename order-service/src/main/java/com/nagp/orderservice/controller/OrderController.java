@@ -39,6 +39,7 @@ public class OrderController {
 	public ResponseEntity<UserOrderDTO> getOrdersOfUser(@PathVariable Long userId) {
 		Span span = tracer.buildSpan("order-service").start();
 		UserOrderDTO userOrderDTO = orderService.getOrdersOfUser(userId);
+		span.setTag("http.status_code", 200);
 		span.finish();
 		return new ResponseEntity<>(userOrderDTO, HttpStatus.OK);
 	}
