@@ -31,10 +31,11 @@ spec:
             configMapKeyRef:
               key: ORDER_SERVICE_URL
               name: service-url-configmap
+        - name: JAEGER_AGENT_HOST
+          value: jaeger-agent
         ports:
         - name: usr-ordr-port
           containerPort: 8080
-        args: ["--opentracing.jaeger.udp-sender.host=jaeger-agent"]
         imagePullPolicy: Always
 
 ---

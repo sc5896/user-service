@@ -41,10 +41,11 @@ spec:
               secretKeyRef:
                 name: mysql-credentials-secret
                 key: password
+          - name: JAEGER_AGENT_HOST
+            value: jaeger-agent
         ports:
         - name: user-svc-port
           containerPort: 8080
-        args: ["--opentracing.jaeger.udp-sender.host=jaeger-agent"]
         imagePullPolicy: Always
 
 ---

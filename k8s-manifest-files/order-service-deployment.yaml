@@ -20,6 +20,9 @@ spec:
       containers:
       - name: order-service
         image: sc5896/order-service:latest
+        env:
+        - name: JAEGER_AGENT_HOST
+          value: jaeger-agent
         ports:
         - name: order-svc-port
           containerPort: 8080
