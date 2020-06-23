@@ -1,0 +1,25 @@
+apiVersion: jaegertracing.io/v1
+kind: Jaeger
+metadata:
+  name: jaeger
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+    name: jaeger-query
+    labels:
+        app: jaeger
+        app.kubernetes.io/name: jaeger
+        app.kubernetes.io/component: query
+spec:
+    selector:
+        app.kubernetes.io/name: jaeger
+        app.kubernetes.io/component: all-in-one
+    type: LoadBalancer
+    ports:
+      - name: query-http
+        protocol: TCP
+        port: 16686
+        targetPort: 16686
