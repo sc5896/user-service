@@ -13,9 +13,8 @@ import com.nagp.orderservice.service.OrderService;
 import com.nagp.orderservice.util.DateUtil;
 
 /**
- * Service implementation of AggregatorService The public method
- * getUserOrderDetails internally calls user-service to get User details and
- * order-service to fetch order details.
+ * Service implementation of OrderService. The public method
+ * getOrdersOfUser returns order details (Order Id, Order Amount and Order Date).
  * 
  * @author santoshkumar02
  *
